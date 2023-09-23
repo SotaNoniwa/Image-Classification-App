@@ -15,10 +15,18 @@ function Home() {
     // handle submitting the image
     async function onSubmit(event) {
         try {
-            // send POST request to API server with file data
-            const res = await axios.post("<your base URL>/predict", file);
+            event.preventDefault();
 
-            console.log(res.data);
+            // create formData object to send the file
+            const formData = new FormData();
+            formData.append("file", file);
+
+            // send POST request to API server with file data
+            const res = await axios.post("/predict", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
 
             // update prediction to display it on screen
             setPrediction(res.data);
