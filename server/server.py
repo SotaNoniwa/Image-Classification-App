@@ -7,6 +7,7 @@ from torch import argmax
 from torchvision import models
 import torchvision.transforms as transforms
 from flask import Flask, request, render_template, jsonify
+from flask_cors import CORS
 
 # Load a pre-trainied DenseNet model from torchvision.models
 model = models.densenet121(weights=models.DenseNet121_Weights.DEFAULT)
@@ -41,6 +42,7 @@ def predict(model, transform, image, class_labels):
 
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/predict", methods=["POST"])
 def predict_api():
@@ -57,6 +59,7 @@ def predict_api():
     # Write result as JSON
     print(class_name)
     return class_name
+  
   except Exception as e:
     print(str(e))
     return str(e)
