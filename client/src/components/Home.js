@@ -19,10 +19,10 @@ function Home() {
 
             // create formData object to send the file
             const formData = new FormData();
-            formData.append("file", file);
+            formData.append("file", event.target.elements.file.files[0]);
 
             // send POST request to API server with file data
-            const res = await axios.post("/predict", formData, {
+            const res = await axios.post("http://127.0.0.1:5000/predict", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },

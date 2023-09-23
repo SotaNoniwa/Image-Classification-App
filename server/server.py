@@ -44,22 +44,23 @@ app = Flask(__name__)
 
 @app.route("/predict", methods=["POST"])
 def predict_api():
-  # Fetch the image from the request and convert it
-  #form = request.form
-  #print(form)
-  #image_file = request.files["file"]
-  #print(image_file)
-  #image_bytes = image_file.read()
-  #image = Image.open(io.BytesIO(image_bytes))
-
-  # Predict the class from the image
-  #class_name = predict(model, transform, image, class_labels)
-  #print(class_name)
+  try:
+    # Fetch the image from the request and convert it
+    print(request.files)
+    image_file = request.files["file"]
+    image_bytes = image_file.read()
+    image = Image.open(io.BytesIO(image_bytes))
   
-  # Write result as JSON
-  print('received')
-  print(request.form)
-  return 'class_name'
+    # Predict the class from the image
+    class_name = predict(model, transform, image, class_labels)
+    
+    # Write result as JSON
+    print(class_name)
+    return class_name
+  except Exception as e:
+    print(str(e))
+    return str(e)
+
 # Run the app
 if __name__ == "__main__":
   app.run(debug=False, threaded=True)
