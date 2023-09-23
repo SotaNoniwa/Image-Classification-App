@@ -44,6 +44,10 @@ def predict(model, transform, image, class_labels):
 app = Flask(__name__)
 CORS(app)
 
+@app.route('/')
+def index():
+  return "This is the server"
+
 @app.route("/predict", methods=["POST"])
 def predict_api():
   try:
