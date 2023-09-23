@@ -22,7 +22,7 @@ function Home() {
             formData.append("file", file);
 
             // send POST request to API server with file data
-            const res = await axios.post("/predict", formData, {
+            const res = await axios.post("http://127.0.0.1:5000/predict", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
